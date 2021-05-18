@@ -3,71 +3,97 @@ package com.aqube.compose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.aqube.compose.ui.theme.JetpackcomposeTheme
+import com.aqube.compose.ui.theme.lightGreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            JetpackcomposeTheme {
+                MainScreen()
+            }
         }
     }
 }
 
 @Composable
 fun MainScreen() {
-    val greetingListState = remember { mutableStateListOf<String>("John", "Chris", "Andrew") }
-    var newNameState = remember { mutableStateOf("") }
+    Surface(modifier = Modifier.fillMaxSize()) {
+        ProfileCard()
+    }
+}
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
+@Composable
+fun ProfileCard() {
+    Card(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(align = Alignment.Top),
+        elevation = 8.dp,
+        backgroundColor = Color.White
     ) {
-        GreetingList(greetingListState,
-            { greetingListState.add(newNameState.value) },
-            newNameState.value,
-            { newNameState.value = it }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            ProfilePicture()
+            ProfileContent()
+        }
+    }
+}
+
+@Composable
+fun ProfilePicture() {
+    Card(
+        shape = CircleShape,
+        border = BorderStroke(width = 2.dp, color = MaterialTheme.colors.lightGreen),
+        modifier = Modifier.padding(16.dp),
+        elevation = 4.dp
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.profile_pic),
+            contentDescription = "",
+            modifier = Modifier.size(70.dp),
+            contentScale = ContentScale.Crop
         )
     }
 }
 
 @Composable
-fun GreetingList(
-    namesList: List<String>,
-    buttonClick: () -> Unit,
-    textFieldValue: String,
-    textFieldChange: (name: String) -> Unit
-) {
-    namesList.forEach { name ->
-        Text(text = name, style = MaterialTheme.typography.h4)
-    }
-
-
-    TextField(value = textFieldValue, onValueChange = textFieldChange)
-
-    Button(onClick = { buttonClick.invoke() }) {
-        Text(text = "Add name")
+fun ProfileContent() {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    ) {
+        Text(text = "John doe", style = MaterialTheme.typography.h6)
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            Text(text = "Active now", style = MaterialTheme.typography.body2)
+        }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MainScreen()
+    JetpackcomposeTheme {
+        MainScreen()
+    }
 }
