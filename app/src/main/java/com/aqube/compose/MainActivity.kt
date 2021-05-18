@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -33,12 +35,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(userProfiles: List<UserProfile> = users) {
     Scaffold(topBar = { AppBar() }) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            Column() {
-                users.forEach { userProfile ->
-                    ProfileCard(userProfile)
+            LazyColumn {
+                items(userProfiles) { user ->
+                    ProfileCard(user)
                 }
             }
         }
@@ -85,7 +87,7 @@ fun ProfilePicture(userProfile: UserProfile) {
     Card(
         shape = CircleShape,
         border = BorderStroke(
-            width = 2.dp,
+            width = 1.dp,
             color = if (userProfile.status)
                 MaterialTheme.colors.lightGreen
             else Color.Red
