@@ -41,6 +41,7 @@ android {
         kotlinCompilerVersion '1.4.32'
         kotlinCompilerExtensionVersion compose_version
     }
+
 }
 
 dependencies {
