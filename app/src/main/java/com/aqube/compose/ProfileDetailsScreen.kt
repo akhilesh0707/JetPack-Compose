@@ -17,8 +17,8 @@ fun ProfileDetailsScreen(user: UserProfile = users[0]) {
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                ProfilePicture(user,200.dp)
-                ProfileContent(user)
+                ProfilePicture(user, 200.dp)
+                ProfileContent(user, Alignment.CenterHorizontally)
             }
         }
     }

@@ -63,7 +63,7 @@ fun ProfileCard(userProfile: UserProfile) {
             horizontalArrangement = Arrangement.Start
         ) {
             ProfilePicture(userProfile, 70.dp)
-            ProfileContent(userProfile)
+            ProfileContent(userProfile, Alignment.Start)
         }
     }
 }
@@ -91,11 +91,11 @@ fun ProfilePicture(userProfile: UserProfile, profilePicSize: Dp) {
 }
 
 @Composable
-fun ProfileContent(userProfile: UserProfile) {
+fun ProfileContent(userProfile: UserProfile, alignment: Alignment.Horizontal) {
     Column(
         modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalAlignment = alignment
     ) {
         Text(text = userProfile.name, style = MaterialTheme.typography.h6)
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
