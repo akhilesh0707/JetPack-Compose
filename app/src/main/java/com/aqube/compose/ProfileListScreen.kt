@@ -15,12 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.aqube.compose.ui.theme.lightGreen
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun MainScreen(userProfiles: List<UserProfile> = users) {
+fun ProfileListScreen(userProfiles: List<UserProfile> = users) {
     Scaffold(topBar = { AppBar() }) {
         Surface(modifier = Modifier.fillMaxSize()) {
             LazyColumn {
@@ -61,14 +62,14 @@ fun ProfileCard(userProfile: UserProfile) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            ProfilePicture(userProfile)
+            ProfilePicture(userProfile, 70.dp)
             ProfileContent(userProfile)
         }
     }
 }
 
 @Composable
-fun ProfilePicture(userProfile: UserProfile) {
+fun ProfilePicture(userProfile: UserProfile, profilePicSize: Dp) {
     Card(
         shape = CircleShape,
         border = BorderStroke(
@@ -83,7 +84,7 @@ fun ProfilePicture(userProfile: UserProfile) {
         Image(
             painter = rememberCoilPainter(userProfile.pictureUrl),
             contentDescription = "",
-            modifier = Modifier.size(70.dp),
+            modifier = Modifier.size(profilePicSize),
             contentScale = ContentScale.Crop
         )
     }
