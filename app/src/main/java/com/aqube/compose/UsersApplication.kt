@@ -8,6 +8,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 
 const val USER_ID_KEY = "userId"
+
 @Composable
 fun UsersApplication() {
     val navController = rememberNavController()
@@ -21,7 +22,9 @@ fun UsersApplication() {
                 type = NavType.IntType
             })
         ) { navBackStackEntry ->
-            ProfileDetailsScreen(navBackStackEntry.arguments!!.getInt(USER_ID_KEY))
+            ProfileDetailsScreen(
+                navBackStackEntry.arguments!!.getInt(USER_ID_KEY), navController
+            )
         }
     }
 }

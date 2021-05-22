@@ -9,12 +9,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -25,11 +27,16 @@ import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun ProfileListScreen(userList: List<UserProfile>, navController: NavHostController?) {
-    Scaffold(topBar = { AppBar() }) {
+    Scaffold(topBar = {
+        AppBar(
+            title = "User List",
+            imageVector = Icons.Filled.Menu
+        ) {}
+    }) {
         Surface(modifier = Modifier.fillMaxSize()) {
             LazyColumn {
                 items(userList) { user ->
-                    ProfileCard(user){
+                    ProfileCard(user) {
                         navController?.navigate("userDetails/${it.id}")
                     }
                 }
@@ -39,14 +46,17 @@ fun ProfileListScreen(userList: List<UserProfile>, navController: NavHostControl
 }
 
 @Composable
-fun AppBar() {
+fun AppBar(title: String, imageVector: ImageVector, iconClickAction: () -> Unit) {
     TopAppBar(
         title = {
-            Text(text = "Compose Demo", color = Color.White)
+            Text(
+                text = title,
+                color = Color.White
+            )
         },
         navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(Icons.Filled.Menu, "")
+            IconButton(onClick = { iconClickAction.invoke() }) {
+                Icon(imageVector = imageVector, contentDescription = "")
             }
         }
     )

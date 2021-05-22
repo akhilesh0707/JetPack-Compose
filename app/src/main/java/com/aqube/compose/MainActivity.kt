@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetpackcomposeTheme {
-               UsersApplication()
+                UsersApplication()
             }
         }
     }
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ProfileListPreview() {
     JetpackcomposeTheme {
-        ProfileListScreen(userList,null)
+        ProfileListScreen(userList, null)
     }
 }
 
@@ -30,6 +30,6 @@ fun ProfileListPreview() {
 @Composable
 fun ProfileDetailPreview() {
     JetpackcomposeTheme {
-        ProfileDetailsScreen(0)
+        ProfileDetailsScreen(0, null)
     }
 }
