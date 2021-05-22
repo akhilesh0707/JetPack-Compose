@@ -30,7 +30,7 @@ fun ProfileListScreen(userList: List<UserProfile>, navController: NavHostControl
             LazyColumn {
                 items(userList) { user ->
                     ProfileCard(user){
-                        navController?.navigate("userDetails")
+                        navController?.navigate("userDetails/${it.id}")
                     }
                 }
             }

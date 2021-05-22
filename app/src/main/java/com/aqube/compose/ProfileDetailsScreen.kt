@@ -9,7 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfileDetailsScreen(user: UserProfile) {
+fun ProfileDetailsScreen(userId: Int) {
+    val user = userList.first { user ->
+        user.id == userId
+    }
+
     Scaffold(topBar = { AppBar() }) {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(

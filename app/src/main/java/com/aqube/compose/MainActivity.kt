@@ -30,6 +30,6 @@ fun ProfileListPreview() {
 @Composable
 fun ProfileDetailPreview() {
     JetpackcomposeTheme {
-        ProfileDetailsScreen(userList[0])
+        ProfileDetailsScreen(0)
     }
 }
