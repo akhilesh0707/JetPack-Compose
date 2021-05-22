@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfileDetailsScreen(user: UserProfile = users[0]) {
+fun ProfileDetailsScreen(user: UserProfile) {
     Scaffold(topBar = { AppBar() }) {
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(

@@ -2,6 +2,7 @@ package com.aqube.compose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,16 +18,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
+import androidx.navigation.NavHostController
 import com.aqube.compose.ui.theme.lightGreen
 import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
-fun ProfileListScreen(userProfiles: List<UserProfile> = users) {
+fun ProfileListScreen(userList: List<UserProfile>, navController: NavHostController?) {
     Scaffold(topBar = { AppBar() }) {
         Surface(modifier = Modifier.fillMaxSize()) {
             LazyColumn {
-                items(userProfiles) { user ->
-                    ProfileCard(user)
+                items(userList) { user ->
+                    ProfileCard(user){
+                        navController?.navigate("userDetails")
+                    }
                 }
             }
         }
@@ -48,14 +53,15 @@ fun AppBar() {
 }
 
 @Composable
-fun ProfileCard(userProfile: UserProfile) {
+fun ProfileCard(userProfile: UserProfile, clickAction: (UserProfile) -> Unit) {
     Card(
         modifier = Modifier
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
             .fillMaxWidth()
-            .wrapContentHeight(align = Alignment.Top),
+            .wrapContentHeight(align = Alignment.Top)
+            .clickable { clickAction(userProfile) },
         elevation = 8.dp,
-        backgroundColor = Color.White
+        backgroundColor = Color.White,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -97,7 +103,12 @@ fun ProfileContent(userProfile: UserProfile, alignment: Alignment.Horizontal) {
             .padding(8.dp),
         horizontalAlignment = alignment
     ) {
-        Text(text = userProfile.name, style = MaterialTheme.typography.h6)
+        CompositionLocalProvider(
+            LocalContentAlpha provides if (userProfile.status)
+                1f else ContentAlpha.medium
+        ) {
+            Text(text = userProfile.name, style = MaterialTheme.typography.h6)
+        }
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text(
                 text = if (userProfile.status) "Active now" else "Offline",

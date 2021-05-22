@@ -2,7 +2,7 @@ package com.aqube.compose
 
 data class UserProfile constructor(val name: String, val status: Boolean, val pictureUrl: String)
 
-val users = arrayListOf(
+val userList = arrayListOf(
     UserProfile(
         name = "Michaela Runnings",
         status = true,
