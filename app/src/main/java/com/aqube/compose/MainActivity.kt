@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aqube.compose.ui.theme.JetpackcomposeTheme
 import com.aqube.compose.ui.theme.lightGreen
+import com.google.accompanist.coil.rememberCoilPainter
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +97,7 @@ fun ProfilePicture(userProfile: UserProfile) {
         elevation = 4.dp
     ) {
         Image(
-            painter = painterResource(id = userProfile.drawable),
+            painter = rememberCoilPainter(userProfile.drawable),
             contentDescription = "",
             modifier = Modifier.size(70.dp),
             contentScale = ContentScale.Crop
